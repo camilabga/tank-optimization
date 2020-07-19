@@ -1,5 +1,5 @@
-function [ sorted_costs ] = fitness(population, N)
-    costs = zeros(N,2);
+function [ sorted_population ] = fitness(population, N)
+    costs = zeros(N,51);
     for i = 1 : N
         fis = sugfis("NumInputs",2,"NumOutputs",1, "NumInputMFs",1, "NumOutputMFs",1);
         fis.Inputs(1).Name = "erro";
@@ -71,9 +71,9 @@ function [ sorted_costs ] = fitness(population, N)
         
         cost = sum(abs(niveis(:,2)-niveis(:,4)))/size(niveis,1);
         
-        costs(i,:) = [cost i];
+        costs(i,:) = [cost population(:,i)'];
         
-        sorted_costs = sortrows(costs);
+        sorted_population = sortrows(costs);
         
     end
 end

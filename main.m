@@ -19,7 +19,7 @@ population = initialization(N, size_I1, size_I2, size_rules, size_out);
 
 display("Gerou a população!");
 
-cost = fitness(population, N);
+sorted_population = fitness(population, N);
 
 display("Calculou os custos!");
 
@@ -27,17 +27,17 @@ display("Calculou os custos!");
 
 for g = 1 : max_gen
     %% Elitismo
-    bests = population(:,cost(1,2));
+    bests = sorted_population(1,2:51);
     for c=2 : n_best                        % seleciona n_best melhores de cada geração para permanecer na próxima
-        bests = [bests population(:,cost(c,2))];
+        bests = [bests sorted_population(c,2:51)];
     end
     
     %% Crossover
-    [filho1, filho2] = crossover(population(:,cost(1,2)), population(:,cost(2,2))); % crossover entre os dois melhores individuos da população
+    [filho1, filho2] = crossover(sorted_population(1,2:51)', sorted_population(2,2:51)'); % crossover entre os dois melhores individuos da população
     
-    for i = 1 : (Pc*N)
+    %for i = 1 : (Pc*N)
         
-    end
+    %end
     
     %% Mutação
     
@@ -48,6 +48,7 @@ for g = 1 : max_gen
     
     
     %% Exclusão de Indivíduos menos "evoluídos"
+    
     
     
 end

@@ -1,1 +1,2 @@
-# Genetic Algorithm
+# Optimization with Genetic Algorithm of a Coupled tanks system Controller
+This repository contains ...

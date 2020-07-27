@@ -2,12 +2,12 @@ clear
 clc
 %% Parâmetros iniciais
 
-N = 3; % população inicial
-M = 8; % população máxima
+N = 45; % população inicial
+M = 50; % população máxima
 max_same = 10; % quantidade de vezes que o mesmo indíviduo foi selecionado como melhor
-max_gen = 100; % quantidade de gerações para parada
-Pc = 0.7;
-Pm = 0.35;
+max_gen = 500; % quantidade de gerações para parada
+Pc = 0.5;
+Pm = 0.1;
 n_best = 1;
 size_I1 = 13;
 size_I2 = 7;
@@ -46,15 +46,9 @@ for g = 1 : max_gen
     display("Selecionou os melhores (Elitismo)!");
     
     %% Crossover
-    [filho1, filho2] = crossover(sorted_population(1,2:51)', sorted_population(2,2:51)'); % crossover entre os dois melhores individuos da população
-    new_population = [new_population; filho1; filho2];
-    
+        
     for i = 1 : (Pc*N)
-        ind1 = randi(N);
-        ind2 = randi(N);
-        while ind1 == ind2    %%% Seleciona os individuos para o crossover
-            ind2 = randi(N);
-        end
+        [ind1, ind2] = roulette(sorted_population);
         
         [filho1, filho2] = crossover(sorted_population(ind1,2:51)', sorted_population(ind2,2:51)');
         

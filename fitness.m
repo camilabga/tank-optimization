@@ -5,7 +5,7 @@ function [ sorted_population ] = fitness(population, N)
         fis.Inputs(1).Name = "erro";
         fis.Inputs(1).Range = [-15 15];
         fis.Inputs(2).Name = "der_erro";
-        fis.Inputs(2).Range = [-600 600];
+        fis.Inputs(2).Range = [-5 5];
         fis.Outputs(1).Name = "saida";
         fis.Outputs(1).Range = [-0.25 0.25];
         fis = addMF(fis,"erro","trimf",[-45 population(1,i) population(3,i)]);
@@ -15,9 +15,9 @@ function [ sorted_population ] = fitness(population, N)
         fis = addMF(fis,"erro","trimf",[population(11,i) population(13,i) 45]);
         fis = removeMF(fis,"erro","mf1");
 
-        fis = addMF(fis,"der_erro","trimf",[-600 population(14,i) population(16,i)]);
+        fis = addMF(fis,"der_erro","trimf",[-5 population(14,i) population(16,i)]);
         fis = addMF(fis,"der_erro","trimf",[population(15,i) population(17,i) population(19,i)]);
-        fis = addMF(fis,"der_erro","trimf",[population(18,i) population(20,i) 600]);
+        fis = addMF(fis,"der_erro","trimf",[population(18,i) population(20,i) 5]);
         fis = removeMF(fis,"der_erro","mf1");
         
         fis = addMF(fis,"saida","linear",[population(21,i) population(22,i) 0],'VariableType',"output");
@@ -68,8 +68,13 @@ function [ sorted_population ] = fitness(population, N)
         
         simOut = sim('ModeloTanques', 'timeout', 200);
         niveis = simOut.get('Niveis');
+        sinais = simOut.get('ControlSignal');
         
-        cost = sum(abs(niveis(:,2)-niveis(:,4)))/size(niveis,1);
+        e1 = sum(sinais(:,2))/size(sinais(:,2),1);
+        e2 = sum((sinais(:,2)- e1).^2)/size(sinais(:,2),1);
+        e3 = sum((niveis(:,2)-niveis(:,4)).^2)/size(niveis,1);
+        
+        cost = 0.025*e1 + 0.025*e2 + 0.95*e3;
         
         costs(i,:) = [cost population(:,i)'];
         

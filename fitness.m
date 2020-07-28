@@ -66,7 +66,7 @@ function [ sorted_population ] = fitness(population, N)
         
         writeFIS(fis, 'fis');
         
-        simOut = sim('ModeloTanques', 'timeout', 200);
+        simOut = sim('ModeloTanques', 'timeout', 150);
         niveis = simOut.get('Niveis');
         sinais = simOut.get('ControlSignal');
         

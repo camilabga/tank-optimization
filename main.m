@@ -17,11 +17,11 @@ size_rules = 30;
 %% Geração da população inicial
 population = initialization(N, size_I1, size_I2, size_rules, size_out);
 
-display("Gerou a população!");
+disp("Gerou a população 0!");
 
 sorted_population = fitness(population, N);
 
-display("Calculou os custos!");
+%display("Calculou os custos!");
 
 last_best = zeros(1,50);
 n_same = 0;
@@ -43,7 +43,7 @@ for g = 1 : max_gen
     end
     new_population = [bests]; 
     
-    display("Selecionou os melhores (Elitismo)!");
+    %display("Selecionou os melhores (Elitismo)!");
     
     %% Crossover
         
@@ -56,11 +56,11 @@ for g = 1 : max_gen
         
     end
     
-    display("Fez o Crossover! 18+");
+    %display("Fez o Crossover! 18+");
     
     %% Mutação
     new_population = [sorted_population(:, 2:51); new_population];
-    display("Podem estar acontecendo mutações!");
+    %display("Podem estar acontecendo mutações!");
     for i = 1 : (size(new_population))
         if (rand() < Pm)
             new_ind = mutation(new_population(i,:));
@@ -92,6 +92,6 @@ for g = 1 : max_gen
         break;
     end
     
-    display("Nova geração vindo aí!");
+    disp(['Geração ', num2str(g), ' criada!']);
     
 end

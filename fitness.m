@@ -74,7 +74,7 @@ function [ sorted_population ] = fitness(population, N)
         e2 = sum((sinais(:,2)- e1).^2)/size(sinais(:,2),1);
         e3 = sum((niveis(:,2)-niveis(:,4)).^2)/size(niveis,1);
         
-        cost = 0.025*e1 + 0.025*e2 + 0.95*e3;
+        cost = 0.2*e1 + 0.25*e2 + 0.55*e3;
         
         costs(i,:) = [cost population(:,i)'];
         

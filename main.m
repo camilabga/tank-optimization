@@ -2,10 +2,10 @@ clear
 clc
 %% Parâmetros iniciais
 
-N = 45; % população inicial
-M = 50; % população máxima
+N = 20; % população inicial
+M = 25; % população máxima
 max_same = 10; % quantidade de vezes que o mesmo indíviduo foi selecionado como melhor
-max_gen = 500; % quantidade de gerações para parada
+max_gen = 100; % quantidade de gerações para parada
 Pc = 0.5;
 Pm = 0.1;
 n_best = 1;
@@ -66,7 +66,7 @@ for g = 1 : max_gen
             new_ind = mutation(new_population(i,:));
             new_population = [new_population; new_ind];
         end
-    end    
+    end
     
     %% Teste do "Custo" dos Novos Indivíduos
     

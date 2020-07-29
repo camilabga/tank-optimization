@@ -2,10 +2,10 @@ clear
 clc
 %% Parâmetros iniciais
 
-N = 20; % população inicial
-M = 25; % população máxima
+N = 15; % população inicial
+M = 20; % população máxima
 max_same = 10; % quantidade de vezes que o mesmo indíviduo foi selecionado como melhor
-max_gen = 100; % quantidade de gerações para parada
+max_gen = 50; % quantidade de gerações para parada
 Pc = 0.5;
 Pm = 0.1;
 n_best = 1;
@@ -31,7 +31,9 @@ n_same = 0;
 for g = 1 : max_gen
     new_population = [];    
     %% Elitismo
-    bests = sorted_population(1,2:51);
+    bests = sorted_population(1,2:51);    
+    save("variables/sugeno_"+ num2str(g)+'.mat','bests');
+    
     if (last_best == bests)
         n_same = n_same + 1;
     else

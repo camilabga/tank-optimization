@@ -6,13 +6,15 @@ N = 15; % população inicial
 M = 20; % população máxima
 max_same = 10; % quantidade de vezes que o mesmo indíviduo foi selecionado como melhor
 max_gen = 50; % quantidade de gerações para parada
-Pc = 0.5;
-Pm = 0.1;
+Pc = 0.9;
+Pm = 0.5;
 n_best = 1;
 size_I1 = 13;
 size_I2 = 7;
 size_out = 0;
 size_rules = 30;
+
+custos_save = [];
 
 %% Geração da população inicial
 population = initialization(N, size_I1, size_I2, size_rules, size_out);
@@ -31,8 +33,9 @@ n_same = 0;
 for g = 1 : max_gen
     new_population = [];    
     %% Elitismo
-    bests = sorted_population(1,2:51);    
-    save("variables/sugeno_"+ num2str(g)+'.mat','bests');
+    bests = sorted_population(1,2:51);  
+    custos_save = [custos_save sorted_population(1,1)];
+    
     
     if (last_best == bests)
         n_same = n_same + 1;
@@ -71,6 +74,7 @@ for g = 1 : max_gen
     end
     
     %% Teste do "Custo" dos Novos Indivíduos
+    %display("Calculando custos!");
     
     for i = 1 : size(new_population)
        I1 = sort(new_population(i,1:13));
@@ -97,3 +101,5 @@ for g = 1 : max_gen
     disp(['Geração ', num2str(g), ' criada!']);
     
 end
+
+save("variables/sugeno1_custos.mat",'custos_save');
